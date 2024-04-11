@@ -15,7 +15,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  init:
 
     runs-on: ubuntu-latest
 
@@ -27,11 +27,19 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+
+  build:
+    needs: init
+
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
   report:
-
+    needs: init
+    
     runs-on: ubuntu-latest
     
     permissions:
